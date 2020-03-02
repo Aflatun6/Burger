@@ -31,6 +31,8 @@ public class MyLinkedList implements NodeList {
                 } else { // It will be when there are no more item left at the end
                     currentItem.setNext(newItem); // insert it to the end;
                     newItem.setPrevious(currentItem); // To point that it is the last only only way back is through that currentItem.
+
+//                    currentItem.setNext(newItem).setPrevious(currentItem); //Because first.setNExt will return newItem and we just setPrevious on newItem the currentItem as a previous
                     return true;
                 }
             } else if (comparison > 0) {
@@ -39,12 +41,15 @@ public class MyLinkedList implements NodeList {
                     ListItem previous = currentItem.previous();
                     previous.setNext(newItem);
                     newItem.setPrevious(previous);
+//                    previous.setNext(newItem).setPrevious(previous);
                     currentItem.setPrevious(newItem);
                     newItem.setNext(currentItem);
+//                    currentItem.setPrevious(newItem).setNext(currentItem);
 
                 } else {
                     newItem.setNext(this.root);
                     this.root.setPrevious(newItem);
+//                    newItem.setNext(this.root).setPrevious(newItem);
                     this.root = newItem;
                 }
                 return true;
@@ -60,11 +65,46 @@ public class MyLinkedList implements NodeList {
 
     @Override
     public boolean removeItem(ListItem item) {
+        if (item != null) {
+            System.out.println("Deleting item " + item.getValue());
+        }
+        ListItem currentItem = this.root;
+        while (currentItem != null) {
+            int comparison = currentItem.compareTo(item);
+            if (comparison == 0) {
+                //found the item to delete
+                if (currentItem == this.root) {
+                    this.root = currentItem.next();
+                } else {
+                    currentItem.previous().setNext(currentItem.next());
+                    if (currentItem.next() != null) {
+                        currentItem.next().setPrevious(currentItem.previous());
+                    }
+                }
+                return true;
+            } else if (comparison < 0) {
+                currentItem = currentItem.next();
+            } else { //comparison > 0
+                //We are at item that greater than one to be deleted
+                // So the item is not on the list
+                return false;
+            }
+        }
+        // We've reached the end of the list
+        // So nothing was deleted
         return false;
+
     }
 
     @Override
     public void traverse(ListItem root) {
-
+        if (root == null) {
+            System.out.println("The list is empty");
+        } else {
+            while (root != null) {
+                System.out.println(root.getValue());
+                root = root.next();
+            }
+        }
     }
 }
