@@ -67,7 +67,7 @@ public class Team<T extends Player> implements Comparable<Team<T>> {
     }
 
     @Override
-    public int compareTo(Team<T> tTeam) {
+    public int compareTo(Team<T> tTeam) { // MAKES COLLECTIONS.SORT() WORK. IT WILL BE SORTED DUE TO THIS FUNCTION LOGIC
         if (ranking() > tTeam.ranking()) return -1;
         else if (ranking() < tTeam.ranking()) return 1;
         else return 0;
