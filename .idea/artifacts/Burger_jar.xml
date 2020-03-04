@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Burger:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Burger_jar</output-path>
+    <root id="archive" name="Burger.jar">
+      <element id="module-output" name="Burger" />
+    </root>
+  </artifact>
+</component>
