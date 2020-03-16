@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Burger">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/Burger_jar/Burger.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
