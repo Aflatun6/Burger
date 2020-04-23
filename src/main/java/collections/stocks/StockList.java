@@ -15,17 +15,11 @@ public class StockList {
     }
 
     public int addStock(StockItem item) {
-        if (item != null) {
+        if(item != null) {
             // check if already have quantities of this item
             StockItem inStock = list.getOrDefault(item.getName(), item);
-//            System.out.println(inStock.getName() + "      " + inStock.getPrice() + "       " + inStock.equals(item));
-//            System.out.println(item.getName() + "      " + item.getPrice() + "       " + item.equals(inStock));
-//            System.out.println(inStock==item);
             // If there are already stocks on this item, adjust the quantity
-
-            // THE OBJECTS CAN BE EQUALS -> THEY WILL POINT INTO SAME MEMORY . BUT EXACTLY THE SAME MEANS IT'S ONE OBJECT ITSELF.
-            if (inStock != item) {
-//                System.out.println("doesn't equals");
+            if(inStock != item) {
                 item.adjustStock(inStock.quantityInStock());
             }
 
@@ -38,7 +32,7 @@ public class StockList {
     public int sellStock(String item, int quantity) {
         StockItem inStock = list.getOrDefault(item, null);
 
-        if ((inStock != null) && (inStock.quantityInStock() >= quantity) && (quantity > 0)) {
+        if((inStock != null) && (inStock.quantityInStock() >= quantity) && (quantity >0)) {
             inStock.adjustStock(-quantity);
             return quantity;
         }
@@ -47,6 +41,14 @@ public class StockList {
 
     public StockItem get(String key) {
         return list.get(key);
+    }
+
+    public Map<String, Double> PriceList() {
+        Map<String, Double> prices = new LinkedHashMap<>();
+        for(Map.Entry<String, StockItem> item : list.entrySet()) {
+            prices.put(item.getKey(), item.getValue().getPrice());
+        }
+        return Collections.unmodifiableMap(prices);
     }
 
     public Map<String, StockItem> Items() {
@@ -63,10 +65,10 @@ public class StockList {
             double itemValue = stockItem.getPrice() * stockItem.quantityInStock();
 
             s = s + stockItem + ". There are " + stockItem.quantityInStock() + " in stock. Value of items: ";
-            s = s + String.format("%.2f", itemValue) + "\n";
+            s = s + String.format("%.2f",itemValue) + "\n";
             totalCost += itemValue;
         }
 
-        return String.format("%sTotal stock value %.2f", s, totalCost);
+        return s + "Total stock value " + totalCost;
     }
 }

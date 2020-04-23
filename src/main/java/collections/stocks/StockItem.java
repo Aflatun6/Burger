@@ -47,7 +47,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public boolean equals(Object obj) {
-//        System.out.println("Entering StockItem.equals");
+        System.out.println("Entering StockItem.equals");
         if(obj == this) {
             return true;
         }
